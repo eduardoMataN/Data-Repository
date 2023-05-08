@@ -16,7 +16,7 @@ from apps.dataset import *
 from apps.dataBag import *
 
 PATH = pathlib.Path(__file__).parent #So this first line is going to the parent of the current path, which is the Multipage app. 
-DATA_PATH = PATH.joinpath("../datasets").resolve() #Once we're on that path, we go into datasets. 
+DATA_PATH = PATH.joinpath("../datasets/Crime").resolve() #Once we're on that path, we go into datasets. 
 df_crime=pd.read_excel(DATA_PATH.joinpath('Crime 2006 - 2019.xlsx'))
 crimeDataset=dataset('Crime by County Chart', df_crime, 'Number', 'crime', 'County', 'Number')
 crimeDataset.modify_percent_change('Crime Desctiption', 'County', 'Number')

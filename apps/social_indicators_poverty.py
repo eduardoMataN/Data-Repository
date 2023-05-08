@@ -17,7 +17,7 @@ from apps.dataBag import *
 from dash.exceptions import PreventUpdate
 
 PATH = pathlib.Path(__file__).parent #So this first line is going to the parent of the current path, which is the Multipage app. 
-DATA_PATH = PATH.joinpath("../datasets").resolve() #Once we're on that path, we go into datasets. 
+DATA_PATH = PATH.joinpath("../datasets/Poverty").resolve() #Once we're on that path, we go into datasets. 
 df_age=pd.read_excel(DATA_PATH.joinpath('Poverty by Age.xlsx'))
 ageDataset=dataset('Poverty by Age Chart', df_age, name='tab-age')
 #ageDataset.modify_percent_change('County', 'Age', 'Percentage')

@@ -16,7 +16,7 @@ from apps.dataset import *
 from apps.dataBag import *
 
 PATH = pathlib.Path(__file__).parent #So this first line is going to the parent of the current path, which is the Multipage app. 
-DATA_PATH = PATH.joinpath("../datasets").resolve() #Once we're on that path, we go into datasets. 
+DATA_PATH = PATH.joinpath("../datasets/Remittances").resolve() #Once we're on that path, we go into datasets. 
 df_rem=pd.read_excel(DATA_PATH.joinpath('Worker Remittances Juarez.xlsx'))
 remDataset=dataset('Revenues by Workers Remittances Chart', df_rem, 'Value', name='remit', group='City', By='Value')
 remDatabag=dataBag([remDataset])

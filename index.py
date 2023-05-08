@@ -12,7 +12,7 @@ from dash.dependencies import Input, Output, State
 from app import app
 from app import server
 
-from apps import border_security, common_items, demographic_indicators, economic_indicators_trade, education, social_indicators, transportation, transportation_border_crossings, economic_indicators_income, demographic_indicators_population, economic_indicators_employment, economic_indicators_industry, economic_indicators_remittances, social_indicators_crime, transportation_airport_activity, education_educational_attaintment_rate, social_indicators_poverty, border_security_apprehensions, border_security_staffing, border_security_migration
+from apps import  common_items, economic_indicators_trade, transportation_border_crossings, economic_indicators_income, demographic_indicators_population, economic_indicators_employment, economic_indicators_industry, economic_indicators_remittances, social_indicators_crime, transportation_airport_activity, education_educational_attaintment_rate, social_indicators_poverty, border_security_apprehensions, border_security_staffing, border_security_migration
 app.layout=html.Div(children=[dcc.Location(id='url', refresh=False),
     dbc.NavbarSimple(children=[
     dbc.DropdownMenu(
@@ -100,16 +100,10 @@ app.layout=html.Div(children=[dcc.Location(id='url', refresh=False),
                 [Input(component_id='url', component_property='pathname')])
                 
 def display_page(pathname):
-    if pathname == '/apps/border_security':
-        return border_security.layout
     if pathname == '/apps/economic_indicators':
         return economic_indicators_trade.layout
-    if pathname == '/apps/education':
-        return education.layout
     if pathname == '/apps/social_indicators_crime':
         return social_indicators_crime.layout
-    if pathname == '/apps/transportation':
-        return transportation.layout
     if pathname == '/apps/transportation_border_crossings':
         return transportation_border_crossings.layout
     if pathname == '/apps/economic_indicators_trade':

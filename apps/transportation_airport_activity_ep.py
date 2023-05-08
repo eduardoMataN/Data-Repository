@@ -16,8 +16,8 @@ from apps.dataset import *
 from apps.dataBag import *
 
 PATH = pathlib.Path(__file__).parent #So this first line is going to the parent of the current path, which is the Multipage app. 
-DATA_PATH = PATH.joinpath("../datasets").resolve() #Once we're on that path, we go into datasets. 
-df_ep=pd.read_excel(DATA_PATH.joinpath('El Paso Passengers 2012-2022.xlsx'))
+DATA_PATH = PATH.joinpath("../datasets/Airport Activity").resolve() #Once we're on that path, we go into datasets. 
+df_ep=pd.read_excel(DATA_PATH.joinpath('El Paso Passengers 2012-2022.xlsx')) #Create dataframe from excel dataset. 
 
 layout=html.Div([
     dbc.Container(children=[

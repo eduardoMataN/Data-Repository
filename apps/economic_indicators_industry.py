@@ -16,7 +16,7 @@ from apps.dataset import *
 from apps.dataBag import *
 
 PATH = pathlib.Path(__file__).parent #So this first line is going to the parent of the current path, which is the Multipage app. 
-DATA_PATH = PATH.joinpath("../datasets").resolve() #Once we're on that path, we go into datasets. 
+DATA_PATH = PATH.joinpath("../datasets/Industry").resolve() #Once we're on that path, we go into datasets. 
 df_est=pd.read_excel(DATA_PATH.joinpath('Number of Establishments.xlsx'))
 stabDataset=dataset('Number of Business Stablishments by Year Chart', df_est, 'Value', 'stablishments', 'County', 'Value', groupMax=True, groupValue=['Year','County'])
 toTable=df_est[df_est['Year']==df_est['Year'][0]][['County', 'Period', 'Value']]
