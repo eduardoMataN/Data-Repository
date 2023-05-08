@@ -227,7 +227,7 @@ def download_median(downloadB):
 )
 def get_sidebar(button, hideSideBar, max, min, reset, dummyTitle, countyValue):
     trigger_id=ctx.triggered_id
-    print(trigger_id)
+    #print(trigger_id)
     if(trigger_id=='edit-emp'):
         if(hideSideBar):
             hideSideBar=False
