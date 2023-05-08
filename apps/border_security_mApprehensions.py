@@ -16,6 +16,7 @@ from apps.dataBag import *
 from dash.exceptions import PreventUpdate
 
 DATA_PATH = PATH.joinpath("../datasets/Apprehensions").resolve()
+#Dataframe is created from excel data file. An object of the dataset class is created.
 df_uac=pd.read_excel(DATA_PATH.joinpath('Monthly UAC Apprehensions by Sector.xlsx'))
 aucDataset=dataset('AUC Monthly Apprehensions Chart', df_uac, 'Unaccompanied Alien Children Apprehended', 'auc-app', 'Sector', 'Unaccompanied Alien Children Apprehended')
 

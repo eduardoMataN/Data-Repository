@@ -255,13 +255,20 @@ def download_median(downloadB): #THERE ARE TWO DATA FRAMES. SHOULD WE APPEND THE
     Input('compare-port2','value')]
 )
 def adjust_elements(buttonimpEx, showSideBar, hsNaics, impExp, reset, max, min, measureValue, commValue, measuresOp, commOp, sidebarTitle, port1Op, port1Value, port2Op, port2Value):
-    trigger_id=ctx.triggered_id
+    #This function is merely intended to show or hide the sidebar, and adjust its values. 
+    #The first step when we display the sidebar is to adjust our mins and max to the information on the screen. 
+    #To do this, we will access the databag that contains the necessary datasets. 
+    trigger_id=ctx.triggered_id #This variable will tell us which input triggered our callback. 
+    #Let's set a default name for the dataset we need and update it later. 
     name='hsImports'
+
+    #If the user clicked on the Edit Graph button, then they are trying to show or hide the sidebar.
     if(trigger_id=='edit-trade-impExp'):
         if(showSideBar):
             showSideBar=False
         else:
             showSideBar=True
+    #Depending on the rest of the controls, we can update the name of the dataset we are looking for. 
     if(hsNaics==True):
         name='naics'
         sidebarTitle=tradeDatabag.getByName(name).get_title()
@@ -292,11 +299,14 @@ def adjust_elements(buttonimpEx, showSideBar, hsNaics, impExp, reset, max, min, 
                 port2Op, port2Value=tradeDatabag.getDataframe(sidebarTitle).get_options('Port')
         measuresOp, measureValue=tradeDatabag.getDataframe(sidebarTitle).get_options('Measures')
         commOp, commValue=tradeDatabag.getDataframe(sidebarTitle).get_options('Commodity')
+    #Once we have checked the rest of our filters, we can decide which dataset we're currently using. 
     tradeDatabag.getDataframe(sidebarTitle).adjustMinMax(['Measures','Commodity'], [measureValue, commValue])
+    #Set current dataset to the one with this title. 
     tradeDatabag.set_current(sidebarTitle)
     currentDataset=tradeDatabag.get_current()
     currMin=currentDataset.min
     currMax=currentDataset.max
+    #If the dataset is currently trimmed, then the values of our Max and Min will correspond to these trim values. 
     if(currentDataset.isTrimmed()):
         currentValueMax=currentDataset.trimMax
         currentValueMin=currentDataset.trimMin
@@ -329,10 +339,14 @@ def adjust_elements(buttonimpEx, showSideBar, hsNaics, impExp, reset, max, min, 
     ]
 ) 
 def update_datasets(chartMode, max, min, reset, mainTitle):
+    #This function will update the dataset if needed using the sidebar controls.  
     trigger_id=ctx.triggered_id
+    #Activates the current charmode (percent, or original)
     tradeDatabag.get_current().activateDataframe(chartMode)
+    #Trims if min or max are updated.
     if(trigger_id=='max_input-trade-impExp' or trigger_id=='min_input'):
         tradeDatabag.get_current().trim(max, min)
+    #Resets if reset button is clicked on. 
     if(trigger_id=='reset-trade-impExp'):
         tradeDatabag.get_current().reset()
     return mainTitle
