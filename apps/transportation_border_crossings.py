@@ -176,6 +176,8 @@ layout=html.Div(children=[
                         selected_columns=[],
                         selected_rows=[],
                         page_size=10,
+                        style_cell={'font-family':'Arial', 'textAlign':'center'},
+                        style_header={'font-family':'Arial'}
                     )
                 ])
             ]),

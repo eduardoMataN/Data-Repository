@@ -173,7 +173,8 @@ def download_median(downloadB, tab):
     Input('min_input_mApp','value')]
 )
 def get_sidebar(monthlyButton, monthlyTab, sideBarShow, title, reset, filterValue, max, min):
-    trigger_id=ctx.triggered_id    
+    trigger_id=ctx.triggered_id 
+    monthlyBag.getByName(monthlyTab).adjustMinMax('Sector', filterValue)   
     if(trigger_id=='select-sector'):
         monthlyBag.getByName(monthlyButton).adjustMinMax('Sector', filterValue)
         
@@ -206,26 +207,18 @@ def get_sidebar(monthlyButton, monthlyTab, sideBarShow, title, reset, filterValu
         currentValueMin=currentDataset.min
         minMax=currentDataset.max-1
         maxMin=currentDataset.min+1
-    if(trigger_id=='reset-app'):
+    if(trigger_id=='reset-mApp'):
         currentValueMax=currentDataset.max
         currentValueMin=currentDataset.min
         sideBarShow=False
-    if(trigger_id=='max_input_app' or trigger_id=='min_input_app'):
+    if(trigger_id=='max_input_mApp' or trigger_id=='min_input_mApp'):
         minMax=max-1
         maxMin=min+1
         currentValueMax=max
         currentValueMin=min
         sideBarShow=False
-    if(trigger_id=='reset-app'):
-        currentValueMax=currentDataset.max
-        currentValueMin=currentDataset.min
-        sideBarShow=False
-    if(trigger_id=='max_input_app' or trigger_id=='min_input_app'):
-        minMax=max-1
-        maxMin=min+1
-        currentValueMax=max
-        currentValueMin=min
-        sideBarShow=False
+    
+    
     
         
     
@@ -246,9 +239,9 @@ def get_sidebar(monthlyButton, monthlyTab, sideBarShow, title, reset, filterValu
 def change_chart(title, chartMode, sideBarTitle, reset, max, min):
     trigger_id=ctx.triggered_id
     monthlyBag.getDataframe(sideBarTitle).activateDataframe(chartMode)
-    if(trigger_id=='max_input_app' or trigger_id=='min_input_app'):
+    if(trigger_id=='max_input_mApp' or trigger_id=='min_input_mApp'):
         monthlyBag.getDataframe(sideBarTitle).trim(max, min)
-    if(trigger_id=='reset-app'):
+    if(trigger_id=='reset-mApp'):
         monthlyBag.getDataframe(sideBarTitle).reset()
     return title
 @app.callback(
