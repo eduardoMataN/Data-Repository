@@ -3,8 +3,11 @@ from apps.common_items import *
 import numpy as np
 import plotly.express as px
 class dataset:
-    
+    #Initiate your dataset. Column refers to the column in the dataframe that holds the numeric values. 
+    #Group refers to the data that you wanna group, in case the data comes with filters. For example, you may wanna group the Household Income by County. 
+    #The group and by arguments will allow the dataset to calculate the percent change version of the dataframe. 
     def __init__(self, title:str, df_original:pd.DataFrame, column=None, name=None, group=None, By=None, colors=None, groupMax=False, groupValue=None):
+        #Every dataset will always keep the original dataframe. That way, operations don't cause issues for other operations. 
         self.df_original=df_original
         self.title=title
         self.groupMax=groupMax
@@ -36,11 +39,14 @@ class dataset:
             self.colors=get_colors(df_original[colors].unique())
         else:
             self.colors=None
+    #Provides the original dataframe without any modifications. 
     def get_original(self)->pd.DataFrame:
         return self.df_original
-    def get_options(self,column):
+    #You can use this to fill dropdowns. It returns all possible options of a column and the default value. 
+    def get_options(self,column:str):
         dff=self.df_original.copy()
         return [{'label':x,'value':x}for x in dff[column].unique()], dff[column].unique()[0]
+    #Activates a view of the dataframe. Currently, it's either percent change or original. 
     def activateDataframe(self, mode):
         if(mode=='Original'):
             self.df_active=self.df_original
@@ -72,7 +78,7 @@ class dataset:
                 else:
                     self.min=self.df_original[self.valuePoint].min()
                     self.max=self.df_original[self.valuePoint].max()
-        
+      #Returns the current active view of the dataset.   
     def getActive(self)->pd.DataFrame:
         df=self.df_active.copy()
         if(self.groupMax):
@@ -80,12 +86,15 @@ class dataset:
         if(self.isTrimmed()):
             return df[(df[self.valuePoint]>=self.trimMin)&(df[self.valuePoint]<=self.trimMax)]
         return df
+    #Returns the percent change view of the dataframe. 
     def get_percent_change(self, df, column, group, By)->pd.DataFrame:
         dff=df.copy()
         dff[column]=df[column].astype(float)
         dff[column]=df.groupby(group)[By].apply(lambda x: x.div(x.iloc[0]).subtract(1).mul(100))
+        #Pandas 1.4.3 -> 2.0. 
         
         return dff
+    #
     def get_percent_change_simple(self, column):
         dff=self.df_original.copy()
         dff[column].pct_change()

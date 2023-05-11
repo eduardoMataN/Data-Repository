@@ -168,6 +168,7 @@ layout=html.Div([
     prevent_initial_call=True
 )
 def download_median(downloadB):
+    
 
     return dcc.send_data_frame(df_median.to_excel, 'Median Household & Personal Income.xlsx')
 
